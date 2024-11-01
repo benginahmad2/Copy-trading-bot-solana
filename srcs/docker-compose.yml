@@ -1,0 +1,21 @@
+version: '3,8'
+
+services:
+    go:
+        depends_on:
+            - mysql
+        image: go
+        restart: always
+        build:
+            context: ./requirements/go/
+            dockerfile: Dockerfile 
+        environment:
+            - API=${API}
+            - API_SECRET=${API_SECRET}
+            - API_TELEGRAM=${API_TELEGRAM}
+            - ID_CHANNEL=${ID_CHANNEL} 
+            - URL=${URL}
+        ports:
+          - "30000:30000"
+        networks:
+             bot:

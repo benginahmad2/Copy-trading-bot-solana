@@ -1,0 +1,57 @@
+#!/bin/bash
+
+installEnv(){
+	FILE=./srcs/.env 
+	if [ -f "$FILE" ];then
+		echo "Env file setting ok"
+	else
+		echo "telegram config"
+		echo "Entry your token for bot telegram:"
+		read api
+		echo "API_TELEGRAM = $api" >> $FILE
+
+		echo "Entry name bot telegram exemple @test_bot:"
+		read api
+		echo "BOT_NAME = $api" >> $FILE
+
+		echo "Entry your API_ID telegram bot https://my.telegram.org/auth:"
+		read api
+		echo "API_ID = $api" >> $FILE
+
+		echo "Entry your API_HASH telegram bot https://my.telegram.org/auth:"
+		read api
+		echo "API_HASH = $api" >> $FILE
+
+		echo "Bybit config"
+		echo "Entry your API bybit:"
+		read api
+		echo "API = $api" >> $FILE
+
+		echo "Entry your API_SECRET bybit:"
+		read api
+		echo "API_SECRET = $api" >> $FILE
+
+		echo "Entry your URL bybit:"
+		read api
+		echo "URL = $api" >> $FILE
+
+		echo "Your signal channel id exemple 1708830683 or @name_channel"
+		read api
+		echo "SIGNAL_CHANNEL = $api" >> $FILE
+		echo "Your channel group for share the signal id exemple 1708830683 or @name_channel"
+		read api
+		echo "ID = $api" >> $FILE
+		echo "MARIADB_ROOT_PWD=test" >> $FILE
+	fi
+}
+
+settingTelegram(){
+	cp ./srcs/.env ./srcs/requirements/python/.
+	rm -rf ./srcs/requirements/python/config
+	mkdir ./srcs/requirements/python/config
+	cd ./srcs/requirements/python/config && python3.10 ../app/telegram.py init
+}
+
+installEnv
+settingTelegram
+mkdir mariadb
